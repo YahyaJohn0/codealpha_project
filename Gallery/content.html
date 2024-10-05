@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>My Website</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div class="dropdown-icon">&#9776;</div> <!-- Hamburger icon -->
+    </div>
+    
+    <div class="dropdown-menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+    
+
+   
+<div class="search-container">
+    <input type="text" id="searchField" placeholder="Search images...">
+    <button id="searchBtn">Search</button>
+</div>
+
+
+    <div class="gallery-container">
+        <div class="image-list">
+           
+        </div>
+        <div class="button-container">
+            <button id="prevBtn">Previous</button>
+        
+            <div class="radio-group">
+                <input type="radio" id="option1" name="galleryOption" value="1" checked>
+                <label for="option1"></label>
+        
+                <input type="radio" id="option2" name="galleryOption" value="2">
+                <label for="option2"></label>
+        
+                <input type="radio" id="option3" name="galleryOption" value="3">
+                <label for="option3"></label>
+        
+                <input type="radio" id="option4" name="galleryOption" value="4">
+                <label for="option4"></label>
+            </div>
+        
+            <button id="showMoreBtn">Show More</button>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Image preview">
+        <div id="caption"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
