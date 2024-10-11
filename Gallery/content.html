@@ -3,67 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="navbar">
-        <h1>My Website</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-        </nav>
-        <div class="dropdown-icon">&#9776;</div> <!-- Hamburger icon -->
-    </div>
-    
-    <div class="dropdown-menu">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
-    </div>
-    
+    <title>Image Slider and Gallery</title>
+    <script defer src="slider.js"></script>
+    <script defer src="script.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Custom CSS for making images equal size */
+        .gallery-container img {
+            width: 100%;
+            height: 200px; /* Set a fixed height */
+            object-fit: cover; /* Ensures the image maintains aspect ratio */
+            border-radius:5px ;
+        }
+        .slidercontainer{
+            width: 85% ;
+            height: 500px;
+            border-radius: 5px;
+        }
+        .slidercontainer img{
+            border-radius: 5px;
+        }
+        @media (max-width: 468px) {
+    /* Styles for screens wider than 768px */
+    #prevBtn{
+        width: 60px;
+        font: 5px;
+        padding: 0;
+        margin: 0;
+    }
+    #showMoreBtn{
+        width: 40px;
+        font: 5px;
+        padding: 0;
+        margin: 0;
+    }
+}
 
-   
-<div class="search-container">
-    <input type="text" id="searchField" placeholder="Search images...">
-    <button id="searchBtn">Search</button>
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <div class="navbar flex justify-between items-center p-5 bg-blue-500 text-white fixed top-0 left-0 w-full z-50">
+        <h1 class="text-xl">My Website</h1>
+        <nav class="hidden md:flex">
+            <a href="#" class="mr-5 hover:underline">Home</a>
+            <a href="#" class="mr-5 hover:underline">About</a>
+            <a href="#" class="mr-5 hover:underline">Services</a>
+            <a href="#" class="hover:underline">Contact</a>
+        </nav>
+        <div class="dropdown-icon block md:hidden text-3xl cursor-pointer">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- Dropdown Menu for Small Screens -->
+    <div class="dropdown-menu hidden flex-col bg-blue-500 md:hidden">
+        <a href="#" class="text-white p-4 block hover:bg-blue-700">Home</a>
+        <a href="#" class="text-white p-4 block hover:bg-blue-700">About</a>
+        <a href="#" class="text-white p-4 block hover:bg-blue-700">Services</a>
+        <a href="#" class="text-white p-4 block hover:bg-blue-700">Contact</a>
+    </div>
+
+    <!-- Image Slider Section -->
+  <!-- Image Slider Section -->
+<div class="slidercontainer relative  mx-auto mt-20">
+    <!-- Images Container -->
+    <div id="slider" class="overflow-hidden relative w-full h-full">
+        <img src="1.jpg" alt="Image 1" class="slider-image object-cover w-full h-full">
+        <img src="2.jpg" alt="Image 2" class="slider-image object-cover w-full h-full hidden">
+        <img src="3.jpg" alt="Image 3" class="slider-image object-cover w-full h-full hidden">
+        <img src="4.jpg" alt="Image 1" class="slider-image object-cover w-full h-full">
+        <img src="5.jpg" alt="Image 2" class="slider-image object-cover w-full h-full hidden">
+        <img src="6.jpg" alt="Image 3" class="slider-image object-cover w-full h-full hidden">
+        <img src="7.jpg" alt="Image 3" class="slider-image object-cover w-full h-full hidden">
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button id="prev" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2  rounded-md">&lt</button>
+    <button id="next" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 text-white px-4 py-2">&gt</button>
 </div>
 
 
-    <div class="gallery-container">
-        <div class="image-list">
-           
+    <!-- Gallery Section -->
+    <div class="gallery-container max-w-6xl mx-auto px-4 py-10">
+        <div class="image-list grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Images will be dynamically inserted here -->
         </div>
-        <div class="button-container">
-            <button id="prevBtn">Previous</button>
-        
-            <div class="radio-group">
-                <input type="radio" id="option1" name="galleryOption" value="1" checked>
-                <label for="option1"></label>
-        
-                <input type="radio" id="option2" name="galleryOption" value="2">
-                <label for="option2"></label>
-        
-                <input type="radio" id="option3" name="galleryOption" value="3">
-                <label for="option3"></label>
-        
-                <input type="radio" id="option4" name="galleryOption" value="4">
-                <label for="option4"></label>
+
+        <!-- Button Container -->
+        <div class="button-container flex justify-center items-center space-x-4 mt-6">
+            <button id="prevBtn" class="bg-blue-500 text-white py-2 px-4  rounded hover:bg-blue-700">Previous</button>
+
+            <div class="radio-group flex items-center space-x-2">
+                <input type="radio" id="option1" name="galleryOption" value="1" checked class="w-5 h-5 border-blue-500 text-blue-500">
+                <label for="option1" class="text-sm cursor-pointer"></label>
+
+                <input type="radio" id="option2" name="galleryOption" value="2" class="w-5 h-5 border-blue-500 text-blue-500">
+                <label for="option2" class="text-sm cursor-pointer"></label>
+
+                <input type="radio" id="option3" name="galleryOption" value="3" class="w-5 h-5 border-blue-500 text-blue-500">
+                <label for="option3" class="text-sm cursor-pointer"></label>
+
+                <input type="radio" id="option4" name="galleryOption" value="4" class="w-5 h-5 border-blue-500 text-blue-500">
+                <label for="option4" class="text-sm cursor-pointer"></label>
             </div>
-        
-            <button id="showMoreBtn">Show More</button>
+
+            <button id="showMoreBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">next</button>
         </div>
     </div>
 
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage" alt="Image preview">
-        <div id="caption"></div>
+    <!-- Modal -->
+    <div id="imageModal" class="modal  hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 flex items-center justify-center z-50">
+        <span class="close absolute top-5 right-10 text-white text-4xl font-bold cursor-pointer">&times;</span>
+        <img class="modal-content max-w-full max-h-full" id="modalImage" alt="Image preview">
+        <div id="caption" class="text-center text-gray-400 text-lg mt-4"></div>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
