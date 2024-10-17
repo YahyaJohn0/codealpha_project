@@ -4,12 +4,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Create a connection to the MySQL database
 const db = mysql.createConnection({
     host: process.env.DB_HOST,    
     user: process.env.DB_USER,     
@@ -17,6 +19,7 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME    
 });
 
+// Connect to the database
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -25,6 +28,7 @@ db.connect((err) => {
     console.log('Connected to the MySQL database');
 });
 
+// User registration endpoint
 app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
@@ -47,6 +51,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
+// User login endpoint
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -80,6 +85,15 @@ app.post('/login', async (req, res) => {
     });
 });
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../my-app/build')));
+
+// The "catchall" handler: for any request that doesn't match one above, send back the React app.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../my-app/build', 'index.html'));
+});
+
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
