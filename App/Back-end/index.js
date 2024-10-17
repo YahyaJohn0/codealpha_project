@@ -5,22 +5,18 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-// Load environment variables from .env file
 dotenv.config();
-
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Database connection
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,      // e.g., '127.0.0.1' or 'localhost'
-    user: process.env.DB_USER,      // e.g., 'root'
-    password: process.env.DB_PASSWORD, // e.g., 'your_password'
-    database: process.env.DB_NAME    // e.g., 'auth_db'
+    host: process.env.DB_HOST,    
+    user: process.env.DB_USER,     
+    password: process.env.DB_PASSWORD, 
+    database: process.env.DB_NAME    
 });
 
-// Connect to the database
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -29,7 +25,6 @@ db.connect((err) => {
     console.log('Connected to the MySQL database');
 });
 
-// Sign up
 app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
@@ -52,7 +47,6 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-// Login
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -66,7 +60,7 @@ app.post('/login', async (req, res) => {
             return res.status(500).json({ message: 'Error logging in.' });
         }
         
-        console.log('Login Results:', results); // Log the results for debugging
+        console.log('Login Results:', results); 
 
         if (results.length === 0) {
             return res.status(401).json({ message: 'Invalid username or password.' });
@@ -75,7 +69,7 @@ app.post('/login', async (req, res) => {
         const user = results[0];
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        console.log('Password Valid:', isPasswordValid); // Log whether password is valid
+        console.log('Password Valid:', isPasswordValid); 
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid username or password.' });
@@ -86,7 +80,6 @@ app.post('/login', async (req, res) => {
     });
 });
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
